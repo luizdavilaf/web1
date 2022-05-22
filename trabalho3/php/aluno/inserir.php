@@ -4,7 +4,7 @@ $con = conectar();
 $nome = $_POST["nome"];
 $email = $_POST["mail"];
 $telefone = $_POST["telefone"];
-$query = 'INSERT INTO "Aluno"' . " (nome,email,telefone) values ('$nome','$email','$telefone')";
+$query = 'INSERT INTO public."Aluno"' . " (nome,email,telefone) values ('$nome','$email','$telefone')";
 pg_query($con, $query);
 
 pg_close($con);

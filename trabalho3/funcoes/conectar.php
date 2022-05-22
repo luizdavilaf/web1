@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 $servername = "127.0.0.1";
 $port = "";
 $username = "postgres";
-$password = "postgre";
+$password = "postgres";
 $dbname = "matricula";
 $string="host=$servername dbname=$dbname  user=$username password=$password";
 
