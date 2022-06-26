@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Ola</title>
+</head>
+<body>
+    <div id="mostra"></div>
+    <script>
+async function buscaJson() {
+    const painel = document.querySelector('#mostra');
+    const url="./estados.php";
+    let resposta=  await fetch(url);
+    let js = await resposta.json();
+    console.log(js)   
+    let texto="<h1>Cidades de Santa Catarina</h1>";
+    js.SC.forEach(cidade => {
+            texto=texto + cidade.nome +"<br>";
+        });
+    texto= texto + "<h1>Capital de Santa Catarina</h1>";
+    texto=texto + js.SC[0].nome;    
+    painel.innerHTML = texto;
+}
+
+buscaJson();
+
+</script>
+</body>
+</html>

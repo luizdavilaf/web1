@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Ola</title>
+</head>
+<body>
+    <div id="mostra"></div>
+    <script>    
+    var estados 
+    
+    
+        async function buscaJson() {
+            const painel = document.querySelector('#mostra');
+            const url = "./estados.php";
+            let resposta = await fetch(url);
+            let js = await resposta.json();  
+            
+            
+            for (let i = 0; i < Object.keys(js).length; i++) {
+                estados[i] = Object.keys(js)[i]
+                    
+                    
+                
+                for (let j = 0; j < Object.values(js)[i].length; j++) {
+                    
+                    Object.defineProperty(estados[i], 'cidade', {
+  value: Object.values(js)[i][j].nome 
+})                               
+                    
+                    console.log(estados[i].cidade) 
+                                     
+                }                
+            }
+             
+            
+        
+            
+                         
+               
+
+         
+
+    }
+
+    buscaJson();
+    
+    </script>
+</body>
+
+</html>

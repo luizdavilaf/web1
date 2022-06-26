@@ -1,0 +1,62 @@
+<?php
+require_once('conecta.php');
+ ?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title> Clientes</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        
+        <div class="container">
+            <br>
+            <button onclick="mostraClientes()" class="btn btn-primary">Mostrar Clientes</button>
+            <br>
+            <div id="mostra"></div>
+  
+        </div>
+        <script>
+            let texto="";
+            function montaLinha (cli){
+                    codigo=cli.codigo;
+                    nome=cli.nome;
+                    cpf=cli.cpf;
+                    
+                    texto+= "<tr>";
+                    texto+= "<td>"+codigo+"</td>";
+                    texto+= "<td>"+nome+"</td>";
+                    texto+= "<td>"+cpf+"</td>";
+                    texto+= "</tr>";
+        
+                }
+            async function mostraClientes() {
+                
+                texto+="<h2>Clientes</h2>";
+                texto+= "<table class='table table-striped'>";
+                texto+= "<tr>";
+                texto+= "<th>Código</th>";
+                texto+= "<th>Nome</th>";
+                texto+= "<th>CPF</th>";
+                texto+= "</tr>";
+                
+                const url="clientes.php";
+                let resposta=  await fetch(url);
+                let js = await resposta.json();
+                //console.log(js);
+                js.forEach (montaLinha); 
+                texto+= "</table>";
+ 
+                const painel = document.querySelector('#mostra');
+                painel.innerHTML = texto; 
+                texto="";
+            }
+         </script> 
+    </body>
+</html>
