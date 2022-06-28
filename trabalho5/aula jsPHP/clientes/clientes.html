@@ -48,8 +48,7 @@ require_once('conecta.php');
                 
                 const url="clientes.php";
                 let resposta=  await fetch(url);
-                let js = await resposta.json();
-                //console.log(js);
+                let js = await resposta.json();                
                 js.forEach (montaLinha); 
                 texto+= "</table>";
  

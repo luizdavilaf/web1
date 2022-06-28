@@ -1,6 +1,6 @@
 <?php
 
-class DAO{
+
    
     function conectaBD() {
         $servername = "127.0.0.1";
@@ -19,5 +19,5 @@ class DAO{
             echo "Erro na Conexao: " . $e->getMessage();
         }
     }
-}
+
 ?>
