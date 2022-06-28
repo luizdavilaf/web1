@@ -1,7 +1,7 @@
 <?php
-require_once(__DIR__ . '\conecta.php');
-require_once(__DIR__ . '\Aluno.php');
-require_once(__DIR__ . '\Curso.php');
+require_once(__DIR__ .'/conecta.php');
+require_once(__DIR__ .'/Aluno.php');
+require_once(__DIR__ .'/Curso.php');
 class Matricula
 {
     private $cod;

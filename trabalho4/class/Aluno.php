@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'\conecta.php');
+require_once(__DIR__.'/conecta.php');
 class Aluno {
     private $cod;
     private $nome;

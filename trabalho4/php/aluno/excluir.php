@@ -8,6 +8,7 @@ $AlunoDao=new AlunoDAO();
 $aluno1=$AlunoDao->buscarAluno($cod);
 $AlunoDao->deletar($aluno1);
 
+
 header("Location: ./selecionar.php");
 
 ?>

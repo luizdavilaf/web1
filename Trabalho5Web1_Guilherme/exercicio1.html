@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Exercício 2</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
+    </script>
+    <script>
+        fetchEstados();
+        async function fetchEstados(){
+            const url = "./estados.php";
+            try{
+                let response = await fetch(url);
+                let obj = await response.json();
+                
+                let estadosSelect = document.getElementById("estadosSelect");
+                obj.estados.forEach(estado => {                  
+                    let option = new Option(estado.sigla, estado.sigla);
+                    estadosSelect.options.add(option);
+                });
+                fetchCidades();
+            }catch(e){
+                console.log(e);
+            }            
+        }
+
+        async function fetchCidades(){
+            const url = "./estados.php";
+            try{
+                let response = await fetch(url);
+                let obj = await response.json();
+                let estadosSelect = document.getElementById("estadosSelect");
+                let selectedValue = estadosSelect.options[estadosSelect.selectedIndex].value;
+
+                let cidadesSelect = document.getElementById("cidadesSelect");
+
+                let i;
+                var length = cidadesSelect.options.length - 1;
+                for(i = length; i >= 0; i--) {
+                    cidadesSelect.remove(i);
+                }                
+
+                obj.estados.forEach(estado => {
+                    if(estado.sigla === selectedValue){
+                        estado.cidades.forEach(cidade => {
+                            let option = new Option(cidade, cidade);
+                            cidadesSelect.options.add(option);
+                        })
+                    }
+                });
+                
+            }catch(e){
+                console.log(e);
+            }            
+        }
+    </script>
+
+</head>
+
+<body>
+    <header class="jumbotron">
+        <h1 class="azul"></h1>
+    </header>
+
+    <nav>
+    </nav><br>
+
+    <body class="d-flex flex-column min-vh-100">
+        <main class="container mb-auto p-2">
+
+            <div class="form-group">
+                <label for="estado">Estado:</label>
+                <select class="form-select" name="estado" id="estadosSelect" onchange="fetchCidades()" required>
+                </select><br>
+
+                <label for="cidade">Cidade:</label>
+                <select class="form-select" name="cidade" id="cidadesSelect" required>
+                </select>
+            </div>
+
+        </main>
+    </body>
+    
+
+    <footer class="jumbotron page-footer mt-auto mb-0 p-4">
+        <p>Aluno: Guilherme de Araujo Medeiros / 11230372</p>
+    </footer>
+
+</body>
+
+</html>

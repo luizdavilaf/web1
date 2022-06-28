@@ -20,6 +20,7 @@ $cursoDao = new CursoDao();
   ?>
 </head>
 <div id="wrapper">
+
   <body class="body p-3 my-3 bg-dark text-white-50">
     <?php
     include_once('../../include/header.html');
@@ -35,20 +36,20 @@ $cursoDao = new CursoDao();
             <div class="form-container">
               Aluno:
               <select name="aluno">
-                <?php                
-               $alunos=$alunoDao->listaAlunos();
-               foreach($alunos as $aluno){
-                 $codigoaluno = $aluno->getCod();
-                 $nomealuno = $aluno->getNome();
+                <?php
+                $alunos = $alunoDao->listaAlunos();
+                foreach ($alunos as $aluno) {
+                  $codigoaluno = $aluno->getCod();
+                  $nomealuno = $aluno->getNome();
                   echo "<option value='$codigoaluno'>Código: $codigoaluno  - Nome: $nomealuno  </option>";
                 }
                 ?>
               </select>
               <br>Curso:
               <select name="curso">
-                <?php    
-                $cursos=$cursoDao->listaCurso();
-                foreach($cursos as $curso){
+                <?php
+                $cursos = $cursoDao->listaCurso();
+                foreach ($cursos as $curso) {
                   $codigocurso = $curso->getCod();
                   $nometurma = $curso->getNomeTurma();
                   $sala = $curso->getSala();
