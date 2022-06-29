@@ -1,5 +1,5 @@
 <?php
-require_once('../../class/Curso.php');
+require_once('../class/Curso.php');
 
 $CursoDao = new CursoDao();
 $cursos = $CursoDao->listaCurso();

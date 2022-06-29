@@ -1,5 +1,5 @@
 <?php
-require_once('../../class/Matricula.php');
+require_once('../class/Matricula.php');
 
 $matriculaDao=new matriculaDao();
 $matriculasPhp=$matriculaDao->listaMatriculas();

@@ -1,5 +1,5 @@
 <?php
-require_once('../../class/Aluno.php');
+require_once('../class/Aluno.php');
 
 $alunoDao=new alunoDao();
 $alunosPhp=$alunoDao->listaAlunos();

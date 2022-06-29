@@ -1,14 +1,10 @@
-<?php
-require_once('../../class/conecta.php');
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
         <title> Alunos</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../../css/estilo.css">
+        <link rel="stylesheet" href="./css/estilo.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -16,10 +12,10 @@ require_once('../../class/conecta.php');
     </head>
     <div id="wrapper">
         <body class="body p-3 my-3 bg-dark text-white-50">
-            <header class="jumbotron bg-dark text-white">
+            <header class="jumbotron bg-secondary text-white">
                 <div class="logo">
                 <figure>
-                    <img src="../../imagens/if.png" alt="logo" />		
+                    <img src="./imagens/if.png" alt="logo" />		
                 </figure>
                 </div>
                 <div class="texto">
@@ -63,7 +59,7 @@ require_once('../../class/conecta.php');
                             texto+= "<th>Telefone</th>";
                             texto+= "</tr>";
                             
-                            const url='./alunos.php';
+                            const url='./php/alunos.php';
                             let resposta=  await fetch(url);
                             let js = await resposta.json();                              
                             js.forEach (montaLinha); 
@@ -95,7 +91,7 @@ require_once('../../class/conecta.php');
                             texto+= "<th>Nome Turma</th>";
                             texto+= "</tr>";
                             
-                            const url='./cursos.php';
+                            const url='./php/cursos.php';
                             let resposta=  await fetch(url);
                             let js = await resposta.json();                              
                             js.forEach (montaLinhaCurso); 
@@ -124,7 +120,7 @@ require_once('../../class/conecta.php');
                             texto+= "<th>Nome Turma</th>";
                             texto+= "</tr>";
                             
-                            const url='./matriculas.php';
+                            const url='./php/matriculas.php';
                             let resposta=  await fetch(url);
                             let js = await resposta.json();                              
                             js.forEach (montaLinhaMatricula); 
@@ -142,5 +138,5 @@ require_once('../../class/conecta.php');
             </div> 
         </body>
     </div>
-    <footer>2022 todos direitos reservados</footer>
+    <footer class="bg-secondary text-white">2022 todos direitos reservados</footer>
 </html>

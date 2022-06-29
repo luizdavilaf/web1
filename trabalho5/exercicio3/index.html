@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title> Alunos</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./css/estilo.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </head>
+    <div id="wrapper">
+        <body class="body p-3 my-3 bg-dark text-white-50">
+            <header class="jumbotron bg-secondary text-white">
+                <div class="logo">
+                <figure>
+                    <img src="./imagens/if.png" alt="logo" />		
+                </figure>
+                </div>
+                <div class="texto">
+                <h1 > Instituto Federal do Rio Grande do Sul</h1>
+                <p>  Sistema de matrículas</p>
+                </div>
+            </header>           
+            <div class='tudo'>
+                <main class="container p-3 my-3 bg-dark text-white-50">    
+                    <div class="container">                        
+                        <div class="container">                        
+                            <br>
+                            <button onclick="mostraAlunos()" class="btn btn-primary">Mostrar Alunos</button>
+                            <button onclick="mostraCursos()" class="btn btn-primary">Mostrar Cursos</button>
+                            <button onclick="mostraMatriculas()" class="btn btn-primary">Mostrar Matriculas</button>
+                            <br>
+                            <div id="mostra"></div>            
+                        </div>            
+                    </div>
+                    <script>                        
+                        let texto="";
+                        function montaLinha (aluno){
+                                codigo=aluno.codigo;
+                                nome=aluno.nome;
+                                email=aluno.email;
+                                telefone=aluno.telefone;                                
+                                texto+= "<tr>";
+                                texto+= "<td>"+codigo+"</td>";
+                                texto+= "<td>"+nome+"</td>";
+                                texto+= "<td>"+email+"</td>";
+                                texto+= "<td>"+telefone+"</td>";
+                                texto+= "</tr>";                    
+                            }
+                        async function mostraAlunos() {                            
+                            texto+="<h2>Alunos</h2>";
+                            texto+= "<table class='table table-striped table-secondary'>";
+                            texto+= "<tr>";
+                            texto+= "<th>Código</th>";
+                            texto+= "<th>Nome</th>";
+                            texto+= "<th>Email</th>";
+                            texto+= "<th>Telefone</th>";
+                            texto+= "</tr>";
+                            
+                            const url='./php/alunos.php';
+                            let resposta=  await fetch(url);
+                            let js = await resposta.json();                              
+                            js.forEach (montaLinha); 
+                            texto+= "</table>";
+            
+                            const painel = document.querySelector('#mostra');
+                            painel.innerHTML = texto; 
+                            texto="";
+                        }
+                        function montaLinhaCurso (curso){
+                                codigo=curso.codigo;
+                                sala=curso.sala;
+                                professor=curso.professor;
+                                nome_turma=curso.nome_turma;                                
+                                texto+= "<tr>";
+                                texto+= "<td>"+codigo+"</td>";
+                                texto+= "<td>"+sala+"</td>";
+                                texto+= "<td>"+professor+"</td>";
+                                texto+= "<td>"+nome_turma+"</td>";
+                                texto+= "</tr>";                    
+                            }
+                        async function mostraCursos() {                            
+                            texto+="<h2>Cursos</h2>";
+                            texto+= "<table class='table table-striped table-secondary'>";
+                            texto+= "<tr>";
+                            texto+= "<th>Código</th>";
+                            texto+= "<th>Sala</th>";
+                            texto+= "<th>Professor</th>";
+                            texto+= "<th>Nome Turma</th>";
+                            texto+= "</tr>";
+                            
+                            const url='./php/cursos.php';
+                            let resposta=  await fetch(url);
+                            let js = await resposta.json();                              
+                            js.forEach (montaLinhaCurso); 
+                            texto+= "</table>";
+            
+                            const painel = document.querySelector('#mostra');
+                            painel.innerHTML = texto; 
+                            texto="";
+                            }
+                        function montaLinhaMatricula (matricula){
+                            codigo=matricula.codigo;
+                            aluno=matricula.aluno;                            
+                            nome_turma=matricula.nome_turma;                                
+                            texto+= "<tr>";
+                            texto+= "<td>"+codigo+"</td>";
+                            texto+= "<td>"+aluno+"</td>";                            
+                            texto+= "<td>"+nome_turma+"</td>";
+                            texto+= "</tr>";                    
+                        }
+                        async function mostraMatriculas() {                            
+                            texto+="<h2>Matriculas</h2>";
+                            texto+= "<table class='table table-striped table-secondary'>";
+                            texto+= "<tr>";
+                            texto+= "<th>Código</th>";
+                            texto+= "<th>Nome do Aluno</th>";                            
+                            texto+= "<th>Nome Turma</th>";
+                            texto+= "</tr>";
+                            
+                            const url='./php/matriculas.php';
+                            let resposta=  await fetch(url);
+                            let js = await resposta.json();                              
+                            js.forEach (montaLinhaMatricula); 
+                            texto+= "</table>";
+            
+                            const painel = document.querySelector('#mostra');
+                            painel.innerHTML = texto; 
+                            texto="";
+                            }
+                        mostraAlunos()
+                        mostraCursos()
+                        mostraMatriculas()
+                    </script> 
+                </main>
+            </div> 
+        </body>
+    </div>
+    <footer class="bg-secondary text-white">2022 todos direitos reservados</footer>
+</html>
