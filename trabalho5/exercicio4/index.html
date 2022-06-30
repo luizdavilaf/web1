@@ -18,21 +18,25 @@
                 await buscaMusica(artista, musica);                                            
                 }         
                                       
-            async function buscaMusica(artista, musica) {                              
+            async function buscaMusica(artista, musica) { 
+                artista = artista.toUpperCase();
+                musica = musica.toUpperCase();
                 const painel = document.querySelector('#mostra');                
-                alert("carregando letra")                
-                    let resposta = await fetch("https://api.lyrics.ovh/v1/"+artista+"/"+musica);                                                                                    
-                    try{                                    
-                        let js = await resposta.json();
-                        await console.log(js)
-                        let letra = await js["lyrics"];                          
-                        let jsoRnaw = letra.replaceAll("\n", "<br />");
-                        jsoRnaw = jsoRnaw.replaceAll("\r", "<p />");
-                        painel.innerHTML = jsoRnaw;
-                    }catch(e) {      
-                        await console.log(e);                                                                        
-                    }  
-                    return false;                                   
+                setTimeout(function() { alert("Carregando letra... Aguarde alguns instantes"); }, 1000);
+                let texto = "<h3>"+ artista+ " - "+musica+"</h3><br><br>";                
+                let resposta = await fetch("https://api.lyrics.ovh/v1/"+artista+"/"+musica);                                                                                    
+                try{                                    
+                    let js = await resposta.json();
+                    await console.log(js)
+                    let letra = await js["lyrics"];                          
+                    let jsoRnaw = letra.replaceAll("\n", "<br />");
+                    jsoRnaw = jsoRnaw.replaceAll("\r", "<p />");
+                    texto = texto + jsoRnaw;
+                    painel.innerHTML = texto;
+                }catch(e) {      
+                    await console.log(e);                                                                        
+                }  
+                return false;                                   
         }       
         </script>
     </head>
