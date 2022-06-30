@@ -1,0 +1,68 @@
+ 
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title> Letras de Musicas</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./css/estilo.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>                     
+            async function getFormData(){                             
+                var artista=await document.getElementById('artista').value;
+                var musica=await document.getElementById('musica').value;                                                        
+                await buscaMusica(artista, musica);                                            
+                }         
+                                      
+            async function buscaMusica(artista, musica) {                              
+                const painel = document.querySelector('#mostra');                
+                alert("carregando letra")                
+                    let resposta = await fetch("https://api.lyrics.ovh/v1/"+artista+"/"+musica);                                                                                    
+                    try{                                    
+                        let js = await resposta.json();
+                        await console.log(js)
+                        let letra = await js["lyrics"];                          
+                        let jsoRnaw = letra.replaceAll("\n", "<br />");
+                        painel.innerHTML = jsoRnaw;
+                    }catch(e) {      
+                        await console.log(e);                                                                        
+                    }  
+                    return false;                                   
+        }       
+        </script>
+    </head>
+    <div id="wrapper">        
+        <body class="body p-3 my-3 bg-dark text-white-50">
+            <header class="jumbotron bg-secondary text-white">                
+                <div class="texto">
+                    <h1 > Letras de músicas</h1>                
+                </div>
+            </header>           
+            <div class='tudo'>                
+                <main class="container p-3 my-3 bg-dark text-white-50">    
+                    <div class="container">                        
+                        <form >
+                            <label for="artista">Artista:</label>
+                            <input type="text" name="artista" id="artista"><br>
+                            <label for="artista">Musica:</label>
+                            <input type="text" name="musica" id="musica"><br>
+                            <input type="submit" onclick="getFormData(); return false;">
+                            
+                        </form>                              
+                    </div>
+                    <br>
+                    <br>
+                    <div class="container bg-secondary">
+                        <div id="mostra"></div>
+                    </div>                    
+                </main>
+            </div> 
+        </body>
+    </div>
+    <footer class="bg-secondary text-white">
+        <div class="container">2022 todos direitos reservados</div></footer>
+</html>
