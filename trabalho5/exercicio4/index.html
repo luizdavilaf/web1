@@ -27,6 +27,7 @@
                         await console.log(js)
                         let letra = await js["lyrics"];                          
                         let jsoRnaw = letra.replaceAll("\n", "<br />");
+                        jsoRnaw = jsoRnaw.replaceAll("\r", "<p />");
                         painel.innerHTML = jsoRnaw;
                     }catch(e) {      
                         await console.log(e);                                                                        
