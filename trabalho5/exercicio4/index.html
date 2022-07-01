@@ -23,9 +23,15 @@
                 musica = musica.toUpperCase();
                 const painel = document.querySelector('#mostra');                
                 setTimeout(function() { alert("Carregando letra... Aguarde alguns instantes"); }, 1000);
-                let texto = "<h3>"+ artista+ " - "+musica+"</h3><br><br>";                
-                let resposta = await fetch("https://api.lyrics.ovh/v1/"+artista+"/"+musica);                                                                                    
-                try{                                    
+                const resposta = await new Promise((resolve, reject)=>{
+                    fetch("https://api.lyrics.ovh/v1/"+artista+"/"+musica)
+                    .then((rp) =>{                        
+                        resolve(rp)
+                    })
+                })
+                let texto = "<h3>Artista: "+ artista+ "<br>Musica: "+musica+"</h3><br><br>";                
+                //let resposta = await fetch("https://api.lyrics.ovh/v1/"+artista+"/"+musica);                                                                                    
+                try{                                                     
                     let js = await resposta.json();
                     await console.log(js)
                     let letra = await js["lyrics"];                          
