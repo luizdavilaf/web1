@@ -1,6 +1,4 @@
- 
-
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="pt-br">
     <head>
         <title> Letras de Musicas</title>
@@ -16,32 +14,45 @@
                 var artista=await document.getElementById('artista').value;
                 var musica=await document.getElementById('musica').value;                                                        
                 await buscaMusica(artista, musica);                                            
-                }         
-                                      
+                }  
+
+            async function fetchSite(artista, musica){
+                return await new Promise(async (resolve, reject)  => {
+                    await fetch("https://api.lyrics.ovh/v1/"+artista+"/"+musica)
+                        .then(res=> {
+                            if (res.ok){                                                              
+                                console.log(res)
+                                resolve(res.json())           
+                            }else 
+                            {   
+                                console.log(res)                          
+                                reject(res.json())
+                            }    
+                        })              
+                })
+            }                                
             async function buscaMusica(artista, musica) { 
                 artista = artista.toUpperCase();
                 musica = musica.toUpperCase();
-                const painel = document.querySelector('#mostra');                
-                setTimeout(function() { alert("Carregando letra... Aguarde alguns instantes"); }, 1000);
-                const resposta = await new Promise((resolve, reject)=>{
-                    fetch("https://api.lyrics.ovh/v1/"+artista+"/"+musica)
-                    .then((rp) =>{                        
-                        resolve(rp)
+                const painel = document.querySelector('#mostra'); 
+                let texto = "<figure><img src='./imagens/loading.gif' alt='logo' class='center'/></figure>"               
+                painel.innerHTML = texto;      
+                texto = "<h3>Artista: "+ artista+ "<br>Musica: "+musica+"</h3><br><br>";  
+                await fetchSite(artista, musica)
+                    .then((resposta) => {   
+                        console.log(resposta)
+                        let letra =  resposta.lyrics;                          
+                        let jsoRnaw = letra.replaceAll("\n", "<br />");
+                        jsoRnaw = jsoRnaw.replaceAll("\r", "<p />");
+                        texto = texto + jsoRnaw; 
+                        painel.innerHTML = texto;
                     })
-                })
-                let texto = "<h3>Artista: "+ artista+ "<br>Musica: "+musica+"</h3><br><br>";                
-                //let resposta = await fetch("https://api.lyrics.ovh/v1/"+artista+"/"+musica);                                                                                    
-                try{                                                     
-                    let js = await resposta.json();
-                    await console.log(js)
-                    let letra = await js["lyrics"];                          
-                    let jsoRnaw = letra.replaceAll("\n", "<br />");
-                    jsoRnaw = jsoRnaw.replaceAll("\r", "<p />");
-                    texto = texto + jsoRnaw;
-                    painel.innerHTML = texto;
-                }catch(e) {      
-                    await console.log(e);                                                                        
-                }  
+                    .catch(e  => {
+                        if(e.status=404){                           
+                            texto = "Letra não encontrada" 
+                        }else{ texto = e}                        
+                        painel.innerHTML = texto;
+                    })
                 return false;                                   
         }       
         </script>
@@ -61,8 +72,7 @@
                             <input type="text" name="artista" id="artista"><br>
                             <label for="artista">Musica:</label>
                             <input type="text" name="musica" id="musica"><br>
-                            <input type="submit" onclick="getFormData(); return false;">
-                            
+                            <input type="submit" onclick="getFormData(); return false;">                            
                         </form>                              
                     </div>
                     <br>
